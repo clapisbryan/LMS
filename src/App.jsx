@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useMatch } from 'react-router-dom'
 import Home from './pages/Student/Home'
 import CoursesList from './pages/Student/CoursesList'
 import CourseDetails from './pages/Student/CourseDetails'
@@ -11,10 +11,15 @@ import Dashboard from './pages/Educator/Dashboard'
 import AddCourse from './pages/Educator/AddCourse'
 import MyCourses from './pages/Educator/MyCourses'
 import StudentsEnrolled from './pages/Educator/StudentsEnrolled'
+import Navbar from './components/Student/Navbar'
+import Notif from './components/Notif'
 
 const App = () => {
+  const isEducatorRoute = useMatch('/educator/*');
   return (
-    <>
+    <div className='text-default min-h-screen bg-white relative'>
+      <Notif />
+      {!isEducatorRoute && <Navbar />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/course-list' element={<CoursesList />} />
@@ -31,7 +36,7 @@ const App = () => {
           <Route path='student-enrolled' element={<StudentsEnrolled />} />
         </Route>
       </Routes>
-    </>
+    </div>
   )
 }
 
